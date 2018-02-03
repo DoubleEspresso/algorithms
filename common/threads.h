@@ -58,7 +58,7 @@ namespace {
   inline void wait_threads_finish(THREAD_HANDLE * handles, int nb) {
     for (int j = 0; j < nb; ++j) thread_join(handles[j]);
   }  
-};
+}
 
 #elif __unix 
 #elif __posix

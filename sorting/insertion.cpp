@@ -4,7 +4,7 @@
 namespace Sort {
 
   void insertion(std::vector<int> &v) {
-    for (int i=1; i<v.size(); ++i) {
+    for (unsigned int i=1; i<v.size(); ++i) {
       int s = v[i];
       for (int j=i-1; j >= 0 && v[j] > s; --j) {
         int t = v[j];

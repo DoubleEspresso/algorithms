@@ -5,7 +5,7 @@ OS = $(shell uname)
 OSFLAVOR =
 
 USERMACROS = -DNDEBUG -DTHREADED
-CFLAGS = -Wall -pedantic -O3 -fomit-frame-pointer -fstrict-aliasing -ffast-math -std=c++0x -pthread
+CFLAGS = -Wall -pedantic -O3 -fomit-frame-pointer -fstrict-aliasing -ffast-math -std=c++0x -pthread -I../common
 DFLAGS =
 LFLAGS = -lpthread -lrt
 INSTALL = /usr/local/bin
@@ -14,9 +14,7 @@ EXE_OS =
 THREADED =
 GIT_VERSION =
 # build info
-SRC := main.cpp threads.cpp globals.cpp magic.cpp uci.cpp move.cpp board.cpp bench.cpp material.cpp pawns.cpp search.cpp hashtable.cpp moveselect.cpp zobrist.cpp book.cpp opts.cpp pgnio.cpp evaluate.cpp mctree.cpp
-
-TUNESRC := tune.cpp
+SRC := main.cpp insertion.cpp merge.cpp
 
 # compiler
 ifeq ($(COMP),)
@@ -59,8 +57,7 @@ ifeq ($(OS),Linux )
 endif
 
 # executable
-EXE = sbchess.exe
-TUNE_EXE = tune.exe
+EXE = sorting.exe
 
 # git version info
 GIT_VERSION := $(shell git describe --abbrev=4 --dirty --always --tags)
@@ -68,10 +65,9 @@ USERMACROS += -DBUILD_DATE="\"$$(date)\""
 USERMACROS += -DVERSION=\"$(GIT_VERSION)\"
 
 OBJ := $(patsubst %.cpp, %.o, $(filter %.cpp,$(SRC)))
-OBJTUNE := $(patsubst %.cpp, %.o, $(filter %.cpp,$(TUNESRC)))
 
 .PHONY:all
-all: information link tune
+all: information link
 
 debug: CFLAGS += -g -ggdb
 debug: USERMACROS:=$(filter-out -DNDEBUG, $(USERMACROS))
@@ -93,8 +89,6 @@ information:
 link: $(OBJ)
 	$(CC) -o $(EXE) $(OBJ) $(LFLAGS)
 
-tune: $(OBJTUNE)
-	$(CC) -o $(TUNE_EXE) $(OBJTUNE) $(LFLAGS)
 
 %.o:%.cpp
 	$(CC) -c $(CFLAGS) $(USERMACROS) $< -o $@

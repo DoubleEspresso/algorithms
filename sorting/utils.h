@@ -1,6 +1,7 @@
 #ifndef UTILS_H
 #define UTILS_H
 
+#include <vector>
 
 // swap two elements in an array
 inline void swap(std::vector<int>& arr, int i, int j) {

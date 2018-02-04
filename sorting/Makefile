@@ -14,7 +14,7 @@ EXE_OS =
 THREADED =
 GIT_VERSION =
 # build info
-SRC := main.cpp insertion.cpp merge.cpp
+SRC := main.cpp
 
 # compiler
 ifeq ($(COMP),)

@@ -6,6 +6,7 @@ struct Node {
   Node(T d) : next(0), data(d) {}
   Node() : next(0), data(0) {}
   Node * next;
+  Node * prev;
   T data;
 };
 
@@ -19,8 +20,13 @@ class List {
  public:
  List() : head(0), tail(0), count(0) { head = new Node<T>(); tail = new Node<T>(); }
   virtual ~List() {
-    if (head) { delete head; head = 0; }
-    if (tail) { delete tail; tail = 0; }
+    Node<T> * curr = head; 
+    while (curr != NULL) { 
+      Node<T> * next = curr->next; 
+      delete curr;
+      curr = next;
+    }
+    head = 0; tail = 0;
   }
   inline bool empty() { return head == NULL; }
   inline size_t size() { return count; }
@@ -41,7 +47,7 @@ class SingleLink : public List<T> {
   void push_back(T data);
   void insert(T data, int idx);
   void erase(int idx);
-}; 
+ }; 
 
 #include "list.hpp"
 

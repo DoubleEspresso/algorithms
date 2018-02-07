@@ -25,7 +25,7 @@ class List {
   inline bool empty() { return head == NULL; }
   inline size_t size() { return count; }
   void print();
-  virtual void add(T data) = 0;
+  virtual void push_back(T data) = 0;
   virtual void insert(T data, int idx) = 0;
   virtual void erase(int idx) = 0;
 };
@@ -38,7 +38,7 @@ class SingleLink : public List<T> {
  public:
   SingleLink() {}
   ~SingleLink() {}
-  void add(T data);
+  void push_back(T data);
   void insert(T data, int idx);
   void erase(int idx);
 }; 

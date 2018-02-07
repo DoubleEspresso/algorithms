@@ -3,14 +3,18 @@
 template<typename T> void List<T>::print() {
   Node<T> * curr; curr = head;
   for(int j=0; j<count; ++j) {
-    printf("%d ", curr->data); curr = curr->next;
+    curr = curr->next;
+    printf("%d ", curr->data); 
   }
   printf("\n");
 }
 
-template<typename T> void SingleLink<T>::add(T data) {
+template<typename T> void SingleLink<T>::push_back(T data) {
   Node<T> * n = new Node<T>(data);
-  tail->next = n;
+  Node<T> * curr;  
+  curr = head;
+  for (int j=0; j<count; ++j ) { curr = curr->next; }
+  curr->next = n;
   tail = n;
   ++count;
 }
@@ -51,7 +55,7 @@ template<typename T> void SingleLink<T>::erase(int idx) {
     } else { // general index
       n = curr; 
       curr = curr->next;
-      prev->next = curr->next;
+      prev->next = curr;
     }
   }
   --count;

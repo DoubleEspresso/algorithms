@@ -57,7 +57,7 @@ ifeq ($(OS),Linux )
 endif
 
 # executable
-EXE = sorting.exe
+EXE = list.exe
 
 # git version info
 GIT_VERSION := $(shell git describe --abbrev=4 --dirty --always --tags)

@@ -23,6 +23,16 @@ inline void merge_arrs(std::vector<T>& arr, int l, int m, int r) {
   }
 }
 
+template<typename T>
+inline void top_sort(const std::list<T> * adj, std::vector<bool>& visited, std::stack<T>& s, const int& idx) {
+  visited[idx] = true;
+  
+  std::list<int>::const_iterator i;  
+  for (i = adj[idx].begin(); i != adj[idx].end(); ++i)
+    if (!visited[*i]) top_sort(adj, visited, s, *i);
+
+  s.push(idx);
+}
 
 
 #endif

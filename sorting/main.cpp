@@ -9,17 +9,36 @@
 
 void test_insertion();
 void test_merge();
+void test_topological();
 
 int main(int argc, char ** argv) {
-
   test_insertion();
   test_merge();
+  test_topological();  
   return 0;
 }
 
+void test_topological() {
+  size_t N = 6;
+  std::list<int> * verts = new std::list<int>[N];
+  std::stack<int> s;
+  verts[5].push_back(2);
+  verts[5].push_back(0);
+  verts[4].push_back(0);
+  verts[4].push_back(1);
+  verts[2].push_back(3);
+  verts[3].push_back(1);
+
+  Sort::topological(verts, s, 6);
+
+  while(!s.empty()) {    
+    printf("%d ", s.top());
+    s.pop();
+  }
+  printf("\n");
+}
 
 void test_insertion() { 
-
   size_t N = 10000;
   MT19937<double> rand(0, N);
   std::vector<double> v;
@@ -31,7 +50,7 @@ void test_insertion() {
   c.finished();
 
   int errs = 0;
-  for (unsigned sint i=1; i<v.size(); ++i) {
+  for (unsigned int i=1; i<v.size(); ++i) {
     if (v[i] < v[i-1]) ++errs;
   }
   printf("..insertion arr has %d-errors\n", errs);

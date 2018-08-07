@@ -49,6 +49,19 @@ class SingleLink : public List<T> {
   void erase(int idx);
  }; 
 
+template<typename T>
+class DoubleLink : public List<T> {
+  using List<T>::head;
+  using List<T>::tail;
+  usint List<T>::count;
+ public:
+  DoubleLink() {}
+  ~DoubleLink() {}
+  void push_back(T data);
+  void insert(T data, int idx);
+  void erase(int idx);
+};
+
 #include "list.hpp"
 
 #endif
